@@ -123,9 +123,10 @@ async fn main() {
     ])
     .await;
 
-    assert_keys_have_same_return_value(&all);
+    assert_each_key_has_same_data_from_remote_system(&all);
 
     let spy = request_spy().lock().await;
+
     dbg!(&all);
     dbg!(&spy);
 
@@ -171,12 +172,14 @@ async fn main() {
     // ]
 }
 
-fn assert_keys_have_same_return_value(items: &[SpecialData]) {
+fn assert_each_key_has_same_data_from_remote_system(items: &[SpecialData]) {
+    // Collect data returned from remote system by key
     let mut m = HashMap::new();
     for item in items {
         m.entry(&item.key).or_insert_with(Vec::new).push(item.data)
     }
 
+    // For each key, check to see that all remote data values are the same
     for (_, values) in m {
         let got = values.windows(2).all(|w| w[0] == w[1]);
         let want = true;
