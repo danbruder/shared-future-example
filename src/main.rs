@@ -64,7 +64,7 @@ async fn make_request_to_remote_system(key: String) -> SpecialData {
 
 /// Get Special Data
 /// This function abstracts the request to the remote system
-/// making sure there's only one in flight request at a time
+/// making sure there's only one in flight request per key at a time
 async fn get_special_data(key: &str) -> SpecialData {
     // Get a lock on the request registry
     let mut requests = request_registry().lock().await;
