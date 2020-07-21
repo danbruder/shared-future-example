@@ -128,6 +128,47 @@ async fn main() {
     let spy = request_spy().lock().await;
     dbg!(&all);
     dbg!(&spy);
+
+    // Prints ->
+    //
+    //     [src/main.rs:129] &all = [
+    //     SpecialData {
+    //         key: "Some key",
+    //         data: 24223005-2f8a-44be-b77b-6520f6b04949,
+    //     },
+    //     SpecialData {
+    //         key: "Some key",
+    //         data: 24223005-2f8a-44be-b77b-6520f6b04949,
+    //     },
+    //     SpecialData {
+    //         key: "Some other key",
+    //         data: 1aadc103-e3ea-42cc-90c6-b77da51b3ccc,
+    //     },
+    //     SpecialData {
+    //         key: "Some other key",
+    //         data: 1aadc103-e3ea-42cc-90c6-b77da51b3ccc,
+    //     },
+    //     SpecialData {
+    //         key: "Some key",
+    //         data: 24223005-2f8a-44be-b77b-6520f6b04949,
+    //     },
+    //     SpecialData {
+    //         key: "Some other key",
+    //         data: 1aadc103-e3ea-42cc-90c6-b77da51b3ccc,
+    //     },
+    //     SpecialData {
+    //         key: "Some other key",
+    //         data: 1aadc103-e3ea-42cc-90c6-b77da51b3ccc,
+    //     },
+    //     SpecialData {
+    //         key: "Some other key",
+    //         data: 1aadc103-e3ea-42cc-90c6-b77da51b3ccc,
+    //     },
+    // ]
+    // [src/main.rs:130] &spy = [
+    //     "Request from client Some key, returning 24223005-2f8a-44be-b77b-6520f6b04949",
+    //     "Request from client Some other key, returning 1aadc103-e3ea-42cc-90c6-b77da51b3ccc",
+    // ]
 }
 
 fn assert_keys_have_same_return_value(items: &[SpecialData]) {
